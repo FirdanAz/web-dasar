@@ -20,7 +20,7 @@ if (isset($_GET['hapus'])) {
     $index = (int)$_GET['hapus'];
     if (isset($_SESSION['daftar'][$index])) {
         unset($_SESSION['daftar'][$index]);
-        $_SESSION['daftar'] = array_values($_SESSION['daftar']); // reset index
+        $_SESSION['daftar'] = array_values($_SESSION['daftar']);
     }
 }
 
@@ -40,18 +40,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $edit_index = isset($_POST['edit_index']) ? (int)$_POST['edit_index'] : null;
 
     if ($nama && $umur && $keterangan !== '') {
-        $daftar = [
-            "nama" => $nama,
-            "umur" => $umur,
-            "keterangan" => $keterangan
-        ];
+        $is_duplicate = false;
 
-        if ($edit_index !== null && isset($_SESSION['daftar'][$edit_index])) {
-            $_SESSION['daftar'][$edit_index] = $daftar;
-            $register_success = "Data berhasil <strong>diubah</strong>.";
+        // Cek duplikat hehe
+        if ($edit_index === null) {
+            foreach ($_SESSION['daftar'] as $data) {
+                if (strtolower($data['nama']) === strtolower($nama) && $data['umur'] == $umur) {
+                    $is_duplicate = true;
+                    break;
+                }
+            }
+        }
+
+        if ($is_duplicate) {
+            $register_error = "Data pengguna dengan nama <strong>" . htmlspecialchars($nama) . "</strong> dan umur <strong>$umur</strong> sudah ada.";
         } else {
-            $_SESSION['daftar'][] = $daftar;
-            $register_success = "Pengguna <strong>" . htmlspecialchars($nama) . "</strong> berhasil didaftarkan.";
+            $daftar = [
+                "nama" => $nama,
+                "umur" => $umur,
+                "keterangan" => $keterangan
+            ];
+
+            if ($edit_index !== null && isset($_SESSION['daftar'][$edit_index])) {
+                $_SESSION['daftar'][$edit_index] = $daftar;
+                $register_success = "Data berhasil <strong>diubah</strong>.";
+            } else {
+                $_SESSION['daftar'][] = $daftar;
+                $register_success = "Pengguna <strong>" . htmlspecialchars($nama) . "</strong> berhasil didaftarkan.";
+            }
         }
     } else {
         $register_error = "Semua field harus diisi.";
