@@ -16,6 +16,7 @@ if (!isset($_SESSION['daftar'])) {
     $_SESSION['daftar'] = [];
 }
 
+// untuk hapus
 if (isset($_GET['hapus'])) {
     $index = (int)$_GET['hapus'];
     if (isset($_SESSION['daftar'][$index])) {
@@ -28,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama = trim($_POST['nama'] ?? '');
     $umur = trim($_POST['umur'] ?? '');
 
+    // untuk field keterangan
     $umur_int = (int)$umur;
     if ($umur_int < 18) {
         $keterangan = 'Remaja';
@@ -74,6 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// untuk edit
 $target = null;
 $edit_mode = false;
 if (isset($_GET['edit'])) {
