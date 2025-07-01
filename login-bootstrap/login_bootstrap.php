@@ -79,7 +79,6 @@
         <img src="logo.png" alt="Logo Artha Cerdas" class="logo" loading="lazy">
         <div class="form-title">Artha Cerdas Semarang</div>
 
-        <!-- Alert gagal login -->
         <div id="loginAlert" class="alert alert-danger alert-box py-2">
             Login gagal
         </div>
@@ -112,12 +111,10 @@
     </div>
 
     <script>
-        // Saat halaman selesai dimuat
         window.addEventListener("DOMContentLoaded", () => {
             document.body.classList.add("loaded");
         });
-
-        // Fungsi ubah tema dengan animasi Lottie
+        
         function changeTheme(value) {
             const html = document.documentElement;
             const body = document.body;
@@ -155,8 +152,7 @@
                 container.style.display = 'none';
             }, 2000);
         }
-
-        // Terapkan tema tersimpan
+        
         window.addEventListener("load", () => {
             const saved = localStorage.getItem('theme-mode');
             if (saved) {
@@ -164,16 +160,13 @@
                 document.getElementById('themeSelect').value = saved;
             }
         });
-
-        // Validasi login
-        // Validasi login
+        
         document.getElementById("loginForm").addEventListener("submit", function(e) {
             e.preventDefault();
             const username = document.getElementById("username").value.trim();
             const password = document.getElementById("password").value.trim();
             const alertBox = document.getElementById("loginAlert");
 
-            // Ambil user dari localStorage (kalau belum ada, pakai default usm/123)
             const savedUser = JSON.parse(localStorage.getItem("userData")) || {
                 username: "usm",
                 password: "123"

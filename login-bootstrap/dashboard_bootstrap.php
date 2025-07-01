@@ -53,49 +53,69 @@ session_start();
     .navbar-brand {
       font-size: 1.25rem;
     }
+
+    .glass-navbar {
+      background-color: rgba(33, 37, 41, 0.8) !important;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar-brand span {
+      color: #fff;
+    }
+
+    .navbar-nav .nav-link {
+      color: #fff;
+      transition: color 0.2s;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #0d6efd;
+    }
   </style>
 </head>
 
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm px-3">
-    <a class="navbar-brand fw-semibold me-4 d-flex align-items-center" href="#">
-      <img src="logo.png" alt="Logo" width="30" height="30" class="me-2">
-      <span>Artha Cerdas</span>
-    </a>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm px-3 glass-navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="logo.png" alt="Logo" width="32" height="32" class="rounded-circle me-2">
+        <span class="fw-bold fs-5">Artha Cerdas</span>
+      </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
-      aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+        aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="collapse navbar-collapse" id="navbarMain">
-      <form class="d-flex ms-auto me-3 w-50">
-        <input class="form-control form-control-dark" type="search" placeholder="Cari data..." aria-label="Search">
-      </form>
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <form class="d-flex ms-auto me-3 w-50">
+          <input class="form-control bg-light-subtle text-dark border-0 rounded-pill px-4" type="search" placeholder="Cari data..." aria-label="Search">
+        </form>
 
-      <ul class="navbar-nav mb-2 mb-lg-0">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="logo.png" alt="Avatar" width="32" height="32" class="rounded-circle me-2">
-            <span>Admin</span>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-            <li><a class="dropdown-item" href="#" onclick="toggleEditUser()">Edit User</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item text-danger" href="#" onclick="logout()">Logout</a></li>
-          </ul>
-        </li>
-      </ul>
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="logo.png" alt="Avatar" width="32" height="32" class="rounded-circle me-2 border border-white">
+              <span>Admin</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userDropdown">
+              <li><a class="dropdown-item" href="#" onclick="toggleEditUser()"><i data-feather="settings" class="me-2"></i>Edit User</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i data-feather="log-out" class="me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
 
   <div class="container-fluid">
     <div class="row">
-      <!-- Sidebar -->
       <nav class="col-md-2 d-none d-md-block sidebar position-fixed">
         <div class="pt-3">
           <ul class="nav flex-column">
@@ -118,7 +138,6 @@ session_start();
         </div>
       </nav>
 
-      <!-- Main Content -->
       <main id="dashboardContent" class="ms-md-auto col-lg-10 px-md-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Dashboard</h1>
@@ -141,24 +160,21 @@ session_start();
           <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
         <div id="saveAlert" class="alert alert-success mt-3 fade show" style="display: none;">
-           User berhasil diubah!
+          User berhasil diubah!
         </div>
 
       </div>
     </div>
   </div>
 
-  <!-- JS Dependencies -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.1/dist/Chart.min.js"></script>
 
-  <!-- Feather Icons -->
   <script>
     feather.replace();
   </script>
 
-  <!-- Chart.js -->
   <script>
     var ctx = document.getElementById("myChart");
     var myChart = new Chart(ctx, {
@@ -189,9 +205,7 @@ session_start();
     });
   </script>
 
-  <!-- Login & Edit User Logic -->
   <script>
-    // Redirect ke login jika belum login
     if (sessionStorage.getItem("loggedIn") !== "true") {
       window.location.href = "index.html";
     }
