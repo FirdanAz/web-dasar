@@ -13,16 +13,46 @@ session_start();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      padding-top: 100px;
+      padding-top: 70px;
     }
   </style>
 </head>
 
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-dark bg-dark fixed-top shadow px-3">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a>
-    <input class="form-control form-control-dark w-100 ms-3" type="text" placeholder="Search" aria-label="Search">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm px-3">
+    <a class="navbar-brand fw-semibold me-4" href="#">
+      <img src="logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-top me-2">
+      Artha Cerdas
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+      aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMain">
+      <form class="d-flex ms-auto me-3 w-50">
+        <input class="form-control form-control-dark" type="search" placeholder="Cari data..." aria-label="Search">
+      </form>
+
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="logo.png" alt="Avatar" width="32" height="32" class="rounded-circle me-2">
+            <span>Admin</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" href="#" onclick="toggleEditUser()">Edit User</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item text-danger" href="#" onclick="logout()">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </nav>
 
   <div class="container-fluid">
@@ -31,6 +61,12 @@ session_start();
       <nav class="col-md-2 d-none d-md-block bg-light sidebar">
         <div class="sidebar-sticky pt-3">
           <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="#" onclick="kembaliKeDashboard()">
+                <span data-feather="home"></span>
+                Dashboard <span class="sr-only">(current)</span>
+              </a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="#" onclick="toggleEditUser()">
                 <span data-feather="settings"></span>
@@ -124,7 +160,7 @@ session_start();
 
     function logout() {
       sessionStorage.removeItem("loggedIn");
-      window.location.href = "index.html";
+      window.location.href = "logout-bootstrap.php";
     }
 
     function toggleEditUser() {
@@ -142,6 +178,10 @@ session_start();
       editSection.style.display = "block";
     }
 
+    function kembaliKeDashboard() {
+      document.getElementById("editUserSection").style.display = "none";
+      document.getElementById("dashboardContent").style.display = "block";
+    }
 
     document.getElementById("editUserForm").addEventListener("submit", function(e) {
       e.preventDefault();
