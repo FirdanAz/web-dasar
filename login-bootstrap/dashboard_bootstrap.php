@@ -14,6 +14,44 @@ session_start();
   <style>
     body {
       padding-top: 70px;
+      background-color: #f8f9fa;
+    }
+
+    .sidebar {
+      height: 100vh;
+      padding-top: 1rem;
+      background-color: #ffffff;
+      border-right: 1px solid #dee2e6;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-link {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .nav-link.active,
+    .nav-link:hover {
+      color: #0d6efd;
+    }
+
+    main {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-top: 1rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    #editUserSection {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .navbar-brand {
+      font-size: 1.25rem;
     }
   </style>
 </head>
@@ -21,9 +59,9 @@ session_start();
 <body>
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm px-3">
-    <a class="navbar-brand fw-semibold me-4" href="#">
-      <img src="logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-top me-2">
-      Artha Cerdas
+    <a class="navbar-brand fw-semibold me-4 d-flex align-items-center" href="#">
+      <img src="logo.png" alt="Logo" width="30" height="30" class="me-2">
+      <span>Artha Cerdas</span>
     </a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
@@ -58,25 +96,22 @@ session_start();
   <div class="container-fluid">
     <div class="row">
       <!-- Sidebar -->
-      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-        <div class="sidebar-sticky pt-3">
+      <nav class="col-md-2 d-none d-md-block sidebar position-fixed">
+        <div class="pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
               <a class="nav-link active" href="#" onclick="kembaliKeDashboard()">
-                <span data-feather="home"></span>
-                Dashboard <span class="sr-only">(current)</span>
+                <i data-feather="home" class="me-2"></i> Dashboard
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#" onclick="toggleEditUser()">
-                <span data-feather="settings"></span>
-                Edit User
+                <i data-feather="user" class="me-2"></i> Edit User
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-danger" href="#" onclick="logout()">
-                <span data-feather="log-out"></span>
-                Logout
+                <i data-feather="log-out" class="me-2"></i> Logout
               </a>
             </li>
           </ul>
@@ -84,7 +119,7 @@ session_start();
       </nav>
 
       <!-- Main Content -->
-      <main id="dashboardContent" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <main id="dashboardContent" class="ms-md-auto col-lg-10 px-md-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Dashboard</h1>
         </div>
@@ -92,7 +127,7 @@ session_start();
         <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
       </main>
-      <div id="editUserSection" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="display: none; margin-top: 20px;">
+      <div id="editUserSection" class="ms-md-auto col-lg-10 px-md-4" style="display: none;">
         <h4>Edit User</h4>
         <form id="editUserForm" style="max-width: 400px;">
           <div class="mb-3">
@@ -105,7 +140,10 @@ session_start();
           </div>
           <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
-        <div id="saveAlert" class="alert alert-success mt-2" style="display: none;">User berhasil diubah!</div>
+        <div id="saveAlert" class="alert alert-success mt-3 fade show" style="display: none;">
+           User berhasil diubah!
+        </div>
+
       </div>
     </div>
   </div>
